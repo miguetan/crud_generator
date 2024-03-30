@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
+// Funciones auxiliares
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -14,67 +15,44 @@ function generateFileContent(templatePath, replacements) {
   return content;
 }
 
-// Asume que el argumento se pasa en formato camelCase o similar
-const modelName = process.argv[2]; // El nombre del modelo pasado como argumento
-const modelNameCapitalized = capitalizeFirstLetter(modelName); // Capitaliza el nombre del modelo para usos donde se necesite
+// Función principal para generar archivos CRUD
+function main(modelName) {
+  const modelNameCapitalized = capitalizeFirstLetter(modelName);
+  const basePath = path.join(__dirname, '..'); // Ajusta según la estructura de tu proyecto
 
+  // Generar Componente CRUD
+  let templatePath = path.join(__dirname, 'templates/crudTemplate.vue');
+  let outputPath = path.join(basePath, `src/components/${modelNameCapitalized}Crud.vue`);
+  generateAndWriteFile(templatePath, outputPath, modelNameCapitalized);
 
-//PRIMERO CREAMOS EL CRUD COMPONENT
-let templatePath = './templates/crudTemplate.vue'; // Asegúrate de que la ruta al template sea correcta
-let outputPath = `./src/components/${modelNameCapitalized}Crud.vue`; // Ajusta la ruta de salida según sea necesario
+  // Generar Servicio
+  templatePath = path.join(__dirname, 'templates/serviceTemplate.ts');
+  outputPath = path.join(basePath, `src/services/${modelNameCapitalized}Service.ts`);
+  generateAndWriteFile(templatePath, outputPath, modelNameCapitalized);
 
+  // Generar Interfaz
+  templatePath = path.join(__dirname, 'templates/interfaceTemplate.ts');
+  outputPath = path.join(basePath, `src/interfaces/${modelNameCapitalized}.ts`);
+  generateAndWriteFile(templatePath, outputPath, modelNameCapitalized);
 
-if (fs.existsSync(outputPath)) {
+  console.log('Generación CRUD completada.');
+}
+
+// Función para generar y escribir el archivo si aún no existe
+function generateAndWriteFile(templatePath, outputPath, modelNameCapitalized) {
+  if (fs.existsSync(outputPath)) {
     console.log(`El archivo ${outputPath} ya existe. No se realiza ninguna acción.`);
     return;
   }
 
-let content = generateFileContent(templatePath, {
-  Modelo: modelNameCapitalized, // Este es el objeto de reemplazos
-  modelo: modelNameCapitalized.toLowerCase() // Este es el objeto de reemplazos
-});
+  const content = generateFileContent(templatePath, {
+    Modelo: modelNameCapitalized,
+    modelo: modelNameCapitalized.toLowerCase()
+  });
 
-fs.writeFileSync(outputPath, content);
-console.log(`Componente Vue CRUD generado para el modelo ${modelName}: ${outputPath}`);
+  fs.writeFileSync(outputPath, content);
+  console.log(`Archivo generado: ${outputPath}`);
+}
 
-
-
-
-//SEGUNDO CREAMOS LOS SERVICIOS
-templatePath = './templates/serviceTemplate.ts'; // Asegúrate de que la ruta al template sea correcta
-outputPath = `./src/services/${modelNameCapitalized}Service.ts`; // Ajusta la ruta de salida según sea necesario
-
-
-if (fs.existsSync(outputPath)) {
-    console.log(`El archivo ${outputPath} ya existe. No se realiza ninguna acción.`);
-    return;
-  }
-
-content = generateFileContent(templatePath, {
-  Modelo: modelNameCapitalized, // Este es el objeto de reemplazos
-  modelo: modelNameCapitalized.toLowerCase() // Este es el objeto de reemplazos
-});
-
-fs.writeFileSync(outputPath, content);
-console.log(`Service generado para el modelo ${modelName}: ${outputPath}`);
-
-
-
-
-//TERCERO CREAMOS LA INTERFAZ
-templatePath = './templates/interfaceTemplate.ts'; // Asegúrate de que la ruta al template sea correcta
-outputPath = `./src/interfaces/${modelNameCapitalized}.ts`; // Ajusta la ruta de salida según sea necesario
-
-
-if (fs.existsSync(outputPath)) {
-    console.log(`La interface ${outputPath} ya existe. No se realiza ninguna acción.`);
-    return;
-  }
-
-content = generateFileContent(templatePath, {
-  Modelo: modelNameCapitalized, // Este es el objeto de reemplazos
-  modelo: modelNameCapitalized.toLowerCase() // Este es el objeto de reemplazos
-});
-
-fs.writeFileSync(outputPath, content);
-console.log(`Interface generada para el modelo ${modelName}: ${outputPath}`);
+// Exportar la función main para que pueda ser usada desde fuera
+module.exports = { main };
