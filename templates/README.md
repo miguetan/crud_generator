@@ -1,0 +1,1 @@
+Guardamos las plantillas de distintas partes que tiene el proyecto para poder automatizar tareas

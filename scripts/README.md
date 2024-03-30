@@ -1,0 +1,1 @@
+Automatiza la creacio de CRUD para proyectos VUE3 con IONIC
