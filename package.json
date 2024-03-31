@@ -1,14 +1,13 @@
 {
   "name": "crud_vue_ionic_generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Genera crud's para proyectos de VUE3 e IONIC. Automatiza la creación de interfaces, servicios, modales y formularios",
   "main": "index.js",
   "bin": {
     "crud": "./cli.js"
   },
-  
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -23,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/miguetan/crud_vue_ionic_generator/issues"
   },
-  "homepage": "https://github.com/miguetan/crud_vue_ionic_generator#readme"
+  "homepage": "https://github.com/miguetan/crud_vue_ionic_generator#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }

@@ -55,4 +55,4 @@ function generateAndWriteFile(templatePath, outputPath, modelNameCapitalized) {
 }
 
 // Exportar la función main para que pueda ser usada desde fuera
-module.exports = { main };
+module.exports = { main,capitalizeFirstLetter,generateFileContent  };
