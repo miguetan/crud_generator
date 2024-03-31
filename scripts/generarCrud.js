@@ -20,20 +20,21 @@ function main(modelName) {
   const modelNameCapitalized = capitalizeFirstLetter(modelName);
   const basePath = path.join(__dirname, '..'); // Ajusta según la estructura de tu proyecto
 
-  // Generar Componente CRUD
-  let templatePath = path.join(__dirname, 'templates/crudTemplate.vue');
-  let outputPath = path.join(basePath, `src/components/${modelNameCapitalized}Crud.vue`);
-  generateAndWriteFile(templatePath, outputPath, modelNameCapitalized);
+// Generar Componente CRUD
+let templatePath = path.join(__dirname, '../templates/crudTemplate.vue');
+let outputPath = path.join(basePath, `src/components/${modelNameCapitalized}Crud.vue`);
+generateAndWriteFile(templatePath, outputPath, modelNameCapitalized);
 
-  // Generar Servicio
-  templatePath = path.join(__dirname, 'templates/serviceTemplate.ts');
-  outputPath = path.join(basePath, `src/services/${modelNameCapitalized}Service.ts`);
-  generateAndWriteFile(templatePath, outputPath, modelNameCapitalized);
+// Generar Servicio
+templatePath = path.join(__dirname, '../templates/serviceTemplate.ts');
+outputPath = path.join(basePath, `src/services/${modelNameCapitalized}Service.ts`);
+generateAndWriteFile(templatePath, outputPath, modelNameCapitalized);
 
-  // Generar Interfaz
-  templatePath = path.join(__dirname, 'templates/interfaceTemplate.ts');
-  outputPath = path.join(basePath, `src/interfaces/${modelNameCapitalized}.ts`);
-  generateAndWriteFile(templatePath, outputPath, modelNameCapitalized);
+// Generar Interfaz
+templatePath = path.join(__dirname, '../templates/interfaceTemplate.ts');
+outputPath = path.join(basePath, `src/interfaces/${modelNameCapitalized}.ts`);
+generateAndWriteFile(templatePath, outputPath, modelNameCapitalized);
+
 
   console.log('Generación CRUD completada.');
 }
