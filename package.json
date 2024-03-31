@@ -1,6 +1,6 @@
 {
   "name": "crud_vue_ionic_generator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Genera crud's para proyectos de VUE3 e IONIC. Automatiza la creación de interfaces, servicios, modales y formularios",
   "main": "index.js",
   "bin": {
